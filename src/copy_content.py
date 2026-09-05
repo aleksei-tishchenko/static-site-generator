@@ -2,11 +2,11 @@ import os
 import shutil
 
 
-def copy_static(source: str = "./static", distanation: str = "./public") -> None:
+def copy_static(source: str = "./static", distanation: str = "./docs") -> None:
 
-    if os.path.exists("./public") and distanation == "./public":
-        shutil.rmtree("./public")
-        os.mkdir("./public")
+    if os.path.exists("./docs") and distanation == "./docs":
+        shutil.rmtree("./docs")
+        os.mkdir("./docs")
 
     if not os.path.exists(distanation):
         os.mkdir(distanation)

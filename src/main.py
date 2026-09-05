@@ -8,9 +8,10 @@ def main() -> None:
     args = sys.argv
     if len(args) < 2:
         basepath = "/"
-    basepath = args[1]
+    else:
+        basepath = args[1]
     copy_static()
-    generate_pages_recursive("./content", "template.html", "./public", basepath)
+    generate_pages_recursive("./content", "template.html", "./docs", basepath)
 
 
 if __name__ == "__main__":
