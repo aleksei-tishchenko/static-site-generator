@@ -23,7 +23,7 @@ def generate_page(from_path: str, template_path: str, dest_path: str) -> None:
 
 
 def generate_pages_recursive(
-    dir_path_content: str, template_path: str, dest_dir_path: str
+    dir_path_content: str, template_path: str, dest_dir_path: str, basepath: str
 ) -> None:
     for entity in os.listdir(dir_path_content):
         full_path = os.path.join(dir_path_content, entity)
@@ -35,8 +35,11 @@ def generate_pages_recursive(
                 template_file = f.read()
             html_string = markdown_to_html_node(markdown_file).to_html()
             title = extract_title(markdown_file)
-            content = template_file.replace("{{ Title }}", title).replace(
-                "{{ Content }}", html_string
+            content = (
+                template_file.replace("{{ Title }}", title)
+                .replace("{{ Content }}", html_string)
+                .replace('href="/', f'href="{basepath}')
+                .replace('src="/', f'src="{basepath}')
             )
             full_dest_path = os.path.dirname(dest_path)
             if full_dest_path != "":
@@ -45,5 +48,5 @@ def generate_pages_recursive(
                 f.write(content)
         else:
             generate_pages_recursive(
-                full_path, template_path, os.path.join(dest_dir_path, entity)
+                full_path, template_path, os.path.join(dest_dir_path, entity), basepath
             )

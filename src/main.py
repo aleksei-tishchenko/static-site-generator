@@ -1,10 +1,16 @@
+import sys
+
 from copy_content import copy_static
 from generate_page import generate_pages_recursive
 
 
 def main() -> None:
+    args = sys.argv
+    if len(args) < 2:
+        basepath = "/"
+    basepath = args[1]
     copy_static()
-    generate_pages_recursive("./content", "template.html", "./public")
+    generate_pages_recursive("./content", "template.html", "./public", basepath)
 
 
 if __name__ == "__main__":
